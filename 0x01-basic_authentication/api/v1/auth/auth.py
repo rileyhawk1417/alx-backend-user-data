@@ -3,7 +3,6 @@
 Module for authentication
 """
 from typing import List, TypeVar
-from flask import Flask
 
 
 class Auth:
