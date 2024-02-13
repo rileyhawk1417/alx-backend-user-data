@@ -1,6 +1,7 @@
-# Simple API
+# Description
 
-Simple HTTP API for playing with `User` model.
+This project is focused on simulating auth requests and handling.
+Basically a simple HTTP API for playing with `User` model.
 
 
 ## Files
