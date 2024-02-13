@@ -4,6 +4,8 @@ Module for authentication
 """
 from typing import List, TypeVar
 
+from flask import Flask
+
 
 class Auth:
     """
@@ -61,4 +63,5 @@ class Auth:
         """
         Fetch the current user
         """
+        request = Flask(__name__)
         return None
