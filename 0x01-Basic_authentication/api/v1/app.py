@@ -23,6 +23,9 @@ elif getenv('AUTH_TYPE') == 'basic_auth':
 
 @app.before_request
 def filter_request():
+    """
+    Filters a request when it comes througvh
+    """
     if auth is None:
         return
     excluded_paths = [
