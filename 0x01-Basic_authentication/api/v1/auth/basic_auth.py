@@ -5,7 +5,6 @@
 import base64
 from typing import Tuple, TypeVar
 
-from werkzeug.datastructures import auth
 from api.v1.auth.auth import Auth
 from models.user import User
 
