@@ -114,7 +114,6 @@ class BasicAuth(Auth):
             auth_header = self.authorization_header(request)
             encoded = self.extract_base64_authorization_header(auth_header)
             decoded = self.decode_base64_authorization_header(encoded)
-            decoded = self.authorization_header(decoded)
             email, password = self.extract_user_credentials(decoded)
             return self.user_object_from_credentials(email, password)
         except Exception:
