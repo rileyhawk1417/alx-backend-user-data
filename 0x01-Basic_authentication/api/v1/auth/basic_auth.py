@@ -44,8 +44,7 @@ class BasicAuth(Auth):
             str: decoded base64 of auth header
         """
         if not (base64_authorization_header and
-                isinstance(base64_authorization_header, str)
-                and base64_authorization_header.startswith('Basic ')):
+                isinstance(base64_authorization_header, str)):
             return None
         try:
             decoded_data = base64.b64decode(base64_authorization_header)
