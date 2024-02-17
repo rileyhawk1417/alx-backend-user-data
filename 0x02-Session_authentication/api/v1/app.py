@@ -34,7 +34,7 @@ def filter_request():
         '/api/v1/forbidden/',
         '/api/v1/auth_session/login/',
     ]
-    if auth.authorization_header(request) is None:
+    if auth.require_auth(request.path, excluded_paths) is None:
         user = auth.current_user(request)
         if auth.authorization_header(request) is None \
                 and auth.session_cookie(request) is None:
