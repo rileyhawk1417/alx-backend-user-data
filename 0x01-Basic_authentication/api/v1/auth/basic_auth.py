@@ -86,13 +86,16 @@ class BasicAuth(Auth):
                 isinstance(user_email, str)
                 and user_pwd and isinstance(user_pwd, str)):
             return None
+
         try:
             users_list = User.search({'email': user_email})
         except Exception:
             return None
+
         for user in users_list:
             if user.is_valid_password(user_pwd):
-                return User
+                return user
+
         return None
     # Sure it overrides the other class though not correctly
 
