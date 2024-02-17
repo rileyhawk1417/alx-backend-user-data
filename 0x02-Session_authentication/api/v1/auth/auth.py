@@ -3,6 +3,7 @@
 Module for authentication
 """
 from typing import List, TypeVar
+import os
 
 from flask import Flask
 
@@ -65,3 +66,11 @@ class Auth:
         """
         request = Flask(__name__)
         return None
+
+    def session_cookie(self, request=None) -> str:
+        """
+        Get value of cookie SESSION_NAME.
+        """
+        if request is not None:
+            cookie_name = os.getenv('SESSION_NAME')
+            return request.cookies.get(cookie_name)
