@@ -40,9 +40,9 @@ class Auth:
         request=None
     ) -> str:
         """Return Auth Header if available"""
-        if request is None:
-            return None
-        return request.headers.get('Authorization', None)
+        if request is not None:
+            return request.headers.get('Authorization')
+        return None
 
     def current_user(
         self,
