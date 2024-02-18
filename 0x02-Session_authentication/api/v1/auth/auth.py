@@ -6,6 +6,7 @@ from typing import List, TypeVar
 import os
 
 from flask import Flask
+import re
 
 
 class Auth:
@@ -21,32 +22,18 @@ class Auth:
         """
         Check if auth path(url) is valid
         """
-        if path is None or excluded_paths is None or not excluded_paths:
-            return True
-        # Handle slash
-        if path[-1] == '/':
-            path = path[:-1]
-        has_slash = False
-        for excluded_path in excluded_paths:
-            if excluded_path[-1] == '/':
-                excluded_path = excluded_path[:-1]
-                has_slash = True
-
-            if excluded_path.endswith('*'):
-                pos_after_slash = excluded_path.rfind('/') + 1
-                excluded = excluded_path[pos_after_slash:-1]
-
-                pos_after_slash = path.rfind('/') + 1
-                tmp_path = path[pos_after_slash:]
-                if excluded in tmp_path:
+        if path is not None and excluded_paths is not None:
+            for excluded in map(lambda v: v.strip(), excluded_paths):
+                pattern = ''
+                if excluded[-1] == '*':
+                    pattern = f'{excluded[0:-1]}.*'
+                elif excluded[-1] == '/':
+                    pattern = f'{excluded[0:-1]}/*'
+                else:
+                    pattern = f'{excluded}/*'
+                if re.match(pattern, path):
                     return False
-            if has_slash:
-                has_slash = False
-        path += '/'
-
-        if path in excluded_paths:
-            return False
-        return True
+        return False
 
     def authorization_header(
         self,
