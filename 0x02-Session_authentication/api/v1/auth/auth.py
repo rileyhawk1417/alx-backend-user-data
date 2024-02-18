@@ -42,7 +42,7 @@ class Auth:
         """Return Auth Header if available"""
         if request is None:
             return None
-        return request.headers.get('Authorization')
+        return request.headers.get('Authorization', None)
 
     def current_user(
         self,
@@ -51,7 +51,6 @@ class Auth:
         """
         Fetch the current user
         """
-        request = Flask(__name__)
         return None
 
     def session_cookie(self, request=None) -> str:
