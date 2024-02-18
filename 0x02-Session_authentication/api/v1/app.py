@@ -6,7 +6,6 @@ from os import getenv
 from api.v1.views import app_views
 from flask import Flask, jsonify, abort, request
 from flask_cors import (CORS, cross_origin)
-import os
 
 app = Flask(__name__)
 app.register_blueprint(app_views)
@@ -22,6 +21,27 @@ if auth_type == 'basic_auth':
 if auth_type == 'session_auth':
     from api.v1.auth.session_auth import SessionAuth
     auth = SessionAuth()
+
+
+@app.errorhandler(404)
+def not_found(error) -> str:
+    """ Not found handler
+    """
+    return jsonify({"error": "Not found"}), 404
+
+
+@app.errorhandler(401)
+def unauthorized_handler(error) -> str:
+    """ Unauthorized request handler
+    """
+    return jsonify({"error": "Unauthorized"}), 401
+
+
+@app.errorhandler(403)
+def forbidden_handler(error) -> str:
+    """ Forbidden request handler
+    """
+    return jsonify({"error": "Forbidden"}), 403
 
 
 @app.before_request
@@ -44,27 +64,6 @@ def filter_request():
             if user is None:
                 abort(403)
             request.current_user = user
-
-
-@app.errorhandler(404)
-def not_found(error) -> str:
-    """ Not found handler
-    """
-    return jsonify({"error": "Not found"}), 404
-
-
-@app.errorhandler(401)
-def unauthorized_handler(error) -> str:
-    """ Unauthorized request handler
-    """
-    return jsonify({"error": "Unauthorized"}), 401
-
-
-@app.errorhandler(403)
-def forbidden_handler(error) -> str:
-    """ Forbidden request handler
-    """
-    return jsonify({"error": "Forbidden"}), 403
 
 
 if __name__ == "__main__":
