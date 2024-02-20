@@ -28,7 +28,7 @@ $ pip3 install -r requirements.txt
 ```python
 pip install markupsafe==2.0.1
 pip install itsdangerous==2.0.1
-pip install Werkzeug==2.0.3
+pip install werkzeug==2.0.3
 ```
 
 
