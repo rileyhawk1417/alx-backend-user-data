@@ -19,21 +19,18 @@ def user_login() -> Tuple[str, int]:
     Return:
         JSON tuple of User object
     """
-    err_msg = {'error': 'no user found for this email'}
-    err_email = {'error:' 'email missing'}
-    err_pass = {'error:' 'password missing'}
     email = request.form.get('email')
     if email is None or len(email.strip()) == 0:
-        return jsonify(err_email), 400
+        return jsonify({'error': 'email missing'}), 400
     password = request.form.get('password')
     if password is None or len(password.strip()) == 0:
-        return jsonify(err_pass), 400
+        return jsonify({'error': 'password missing'}), 400
     try:
         users = User.search({'email': email})
     except Exception:
-        return jsonify(err_msg), 404
+        return jsonify({'error': 'no user found for this email'}), 404
     if not users or users == []:
-        return jsonify(err_msg), 404
+        return jsonify({'error': 'no user found for this email'}), 404
     for user in users:
         if user.is_valid_password(password):
             from api.v1.app import auth
