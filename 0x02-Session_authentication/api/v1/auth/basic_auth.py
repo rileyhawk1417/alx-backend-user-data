@@ -99,10 +99,7 @@ class BasicAuth(Auth):
         return None
     # Sure it overrides the other class though not correctly
 
-    def current_user(
-        self,
-        request: None
-    ) -> TypeVar('User'):
+    def current_user(self, request: None) -> TypeVar('User'):
         """
         Return specified user email & password
         Args:

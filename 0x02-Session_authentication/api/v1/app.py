@@ -43,6 +43,14 @@ def forbidden_handler(error) -> str:
     return jsonify({"error": "Forbidden"}), 403
 
 
+excluded_paths = [
+    '/api/v1/status/',
+    '/api/v1/unauthorized/',
+    '/api/v1/forbidden/',
+    '/api/v1/auth_session/login/',
+]
+
+
 @app.before_request
 def filter_request():
     """
@@ -51,12 +59,6 @@ def filter_request():
     if auth is None:
         return
     if auth:
-        excluded_paths = [
-            '/api/v1/status/',
-            '/api/v1/unauthorized/',
-            '/api/v1/forbidden/',
-            '/api/v1/auth_session/login/',
-        ]
         auth_header = auth.authorization_header(request)
         auth_cookie = auth.session_cookie(request)
         if auth.require_auth(request.path, excluded_paths):

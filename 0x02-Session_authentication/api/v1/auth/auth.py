@@ -44,10 +44,7 @@ class Auth:
             return request.headers.get('Authorization')
         return None
 
-    def current_user(
-        self,
-        request=None
-    ) -> TypeVar('User'):
+    def current_user(self, request=None) -> TypeVar('User'):
         """
         Fetch the current user
         """
@@ -57,7 +54,7 @@ class Auth:
         """
         Get value of cookie SESSION_NAME.
         """
-        if request is not None:
-            cookie_name = os.getenv('SESSION_NAME')
-            return request.cookies.get(cookie_name)
-        return None
+        if request is None:
+            return None
+        cookie_name = os.getenv('SESSION_NAME')
+        return request.cookies.get(cookie_name)
