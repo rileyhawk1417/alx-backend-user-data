@@ -32,14 +32,15 @@ def user_login() -> Tuple[str, int]:
         users = User.search({'email': email})
     except Exception:
         return jsonify(err_msg), 404
-    if len(users) <= 0:
+    if not users or users == []:
         return jsonify(err_msg), 404
-    if users[0].is_valid_password(password):
-        from api.v1.app import auth
-        session_id = auth.create_session(getattr(users[0], 'id'))
-        reply = jsonify(users[0].to_json())
-        reply.set_cookie(getenv('SESSION_NAME'), session_id)
-        return reply
+    for user in users:
+        if user.is_valid_password(password):
+            from api.v1.app import auth
+            session_id = auth.create_session(getattr(users[0], 'id'))
+            reply = jsonify(user.to_json())
+            reply.set_cookie(getenv('SESSION_NAME'), session_id)
+            return reply
     return jsonify({'error': 'wrong password'}), 401
 
 
