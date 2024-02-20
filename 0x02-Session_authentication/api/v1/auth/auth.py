@@ -22,17 +22,12 @@ class Auth:
         """
         Check if auth path(url) is valid
         """
-        if path is not None and excluded_paths is not None:
-            for excluded in map(lambda v: v.strip(), excluded_paths):
-                pattern = ''
-                if excluded[-1] == '*':
-                    pattern = f'{excluded[0:-1]}.*'
-                elif excluded[-1] == '/':
-                    pattern = f'{excluded[0:-1]}/*'
-                else:
-                    pattern = f'{excluded}/*'
-                if re.match(pattern, path):
-                    return False
+        if not path or not excluded_paths or excluded_paths == []:
+            return True
+        if path[-1] != '/':
+            path += '/'
+        if path not in excluded_paths:
+            return True
         return False
 
     def authorization_header(

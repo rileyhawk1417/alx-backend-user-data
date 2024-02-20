@@ -23,6 +23,13 @@ Basically a simple HTTP API for playing with `User` model.
 ```
 $ pip3 install -r requirements.txt
 ```
+#### You need to install the following as well.
+
+```python
+pip install markupsafe==2.0.1
+pip install itsdangerous==2.0.1
+pip install Werkzeug==2.0.3
+```
 
 
 ## Run
