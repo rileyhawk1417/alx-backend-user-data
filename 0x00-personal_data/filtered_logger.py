@@ -8,7 +8,6 @@ import os
 import re
 import logging
 import mysql.connector
-import typing
 from typing import List
 
 patterns = {
@@ -19,7 +18,7 @@ PII_FIELDS = ('name', 'email', 'phone', 'ssn', 'password')
 
 
 def filter_datum(
-    fields: typing.List[str], redaction: str, message: str, separator: str
+    fields: List[str], redaction: str, message: str, separator: str
 ) -> str:
     """
     Filter fields & add separators
@@ -108,13 +107,7 @@ class RedactingFormatter(logging.Formatter):
         self.fields = fields
 
     def format(self, record: logging.LogRecord) -> str:
-        """
-        Format a log Record
-        Args:
-            logging.LogRecord: record
-        Returns:
-            str: formatted log record
-        """
+        """Format a log Record"""
         msg = super(RedactingFormatter, self).format(record)
         output = filter_datum(self.fields, self.REDACTION, msg, self.SEPARATOR)
         return output
