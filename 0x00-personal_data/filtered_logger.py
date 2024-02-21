@@ -18,7 +18,7 @@ PII_FIELDS = ('name', 'email', 'phone', 'ssn', 'password')
 
 
 def filter_datum(
-    fields: typing.List[str], redaction: str, message: str, separator: str
+    fields, redaction: str, message: str, separator: str
 ) -> str:
     """
     Filter fields & add separators
@@ -99,7 +99,7 @@ class RedactingFormatter(logging.Formatter):
     FORMAT_FIELDS = ('name', 'levelname', 'asctime', 'message')
     SEPARATOR = ';'
 
-    def __init__(self, fields) -> None:
+    def __init__(self, fields: typing.List[str]) -> None:
         """
         Init method for class
         """
