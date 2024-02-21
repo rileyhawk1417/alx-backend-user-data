@@ -102,7 +102,7 @@ def update_password() -> str:
     """
     email = request.form.get('email')
     reset_token = request.form.get('reset_token')
-    new_pass = request.form.get('new_pass')
+    new_pass = request.form.get('new_password')
     has_pass_changed = False
     try:
         AUTH.update_password(reset_token, new_pass)
