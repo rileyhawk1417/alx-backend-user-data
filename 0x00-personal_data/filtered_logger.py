@@ -99,7 +99,7 @@ class RedactingFormatter(logging.Formatter):
     FORMAT_FIELDS = ('name', 'levelname', 'asctime', 'message')
     SEPARATOR = ';'
 
-    def __init__(self, fields: List[str]) -> None:
+    def __init__(self, fields: list) -> None:
         """
         Init method for class
         """
