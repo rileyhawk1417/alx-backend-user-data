@@ -7,6 +7,7 @@ Module to filter logs
 import re
 import logging
 from typing import List
+import typing
 
 patterns = {
     'extract': lambda x, y: r'(?P<field>{})=[^{}]*'.format('|'.join(x), y),
@@ -41,7 +42,7 @@ class RedactingFormatter(logging.Formatter):
     FORMAT_FIELDS = ('name', 'levelname', 'asctime', 'message')
     SEPARATOR = ';'
 
-    def __init__(self, fields) -> None:
+    def __init__(self, fields: typing.List[str]) -> None:
         """
         Init method for class
         """
